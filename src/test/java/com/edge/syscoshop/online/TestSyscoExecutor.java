@@ -28,11 +28,11 @@ public class TestSyscoExecutor {
     private final static Logger logger = Logger.getLogger(TestSyscoExecutor.class);
     public static int rowIndex;
     public static String projectPath = System.getProperty("user.dir");
-    public static String inputFile = System.getProperty("user.home") + "\\Desktop\\ExportEngineInput.xlsx";
+    public static String inputFile = System.getProperty("user.home") + "/Desktop/ExportEngineInput.xlsx";
     // projectPath + "\\config\\ExportEngineInput.xlsx";
     public static SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
     public static String reportFile = System.getProperty("user.home")
-            + "\\Desktop\\Reports\\SyscoShop_OG_report\\ExportSummary_SyscoShop_"
+            + "/Desktop/Reports/SyscoShop_OG_report/ExportSummary_SyscoShop_"
             + new Date().toString().replace(":", "").replace(" ", "") + ".xlsx";
     // for Edge -
     // "C:\\Users\\Edge\\Desktop\\Reports\\CheneyOG_report\\ExportSummary_Cheney_" +
@@ -49,7 +49,7 @@ public class TestSyscoExecutor {
     public static String folderDate;
     public static String currList = "";
     public static String emailMessageExport = "";
-    public static String path = System.getProperty("user.home") + "\\Downloads\\chromedriver_win32\\chromedriver.exe";
+    public static String path = System.getProperty("user.home") + "/Downloads/chromedriver_win32/chromedriver.exe";
     public static String project = "SyscoShop";
     public static String extentReport = System.getProperty("user.dir") + File.separator + (new File(System.getProperty("user.dir") + "/extentsReport").mkdirs() ? "/extentsReport" : "/extentsReport")
             + File.separator + "Report.html";
@@ -72,7 +72,7 @@ public class TestSyscoExecutor {
     public static void setUp() throws IOException {
         // to get the browser on which the UI test has to be performed.
         logger.info("***********StartTest*********");
-        RandomAction.deleteFiles(System.getProperty("user.home") + "\\Downloads",".csv");
+        RandomAction.deleteFiles(System.getProperty("user.home") + "/Downloads",".csv");
         driver = RandomAction.openBrowser("Chrome", path);
         driver.manage().deleteAllCookies();
         commonSysco = new CommonSysco(driver);
