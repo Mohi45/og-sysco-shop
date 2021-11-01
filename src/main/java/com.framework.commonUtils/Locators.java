@@ -10,7 +10,7 @@ public class Locators {
     public static By loc_login = By.id("okta-signin-submit");
 
     public static By loc_lists = By.xpath("//div[normalize-space()='Lists']"); // https://shop.sysco.com/app/lists
-    public static String  listItems = "//div[contains(@data-dd-action-name,'listName')]";
+    public static String  listItems = "//div[contains(@data-dd-action-name,'%s')]";
 
     public static By loc_seeAllLists = By.xpath("//div[contains(@data-dd-action-name,'List 'See All Lists')]");
     public static By loc_allListDropIcon = By.xpath("//div[@data-id='list_dropdown_wrapper']");

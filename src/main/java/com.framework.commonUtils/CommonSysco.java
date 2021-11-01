@@ -54,7 +54,7 @@ public class CommonSysco {
 //            waitForElementToAppear(Locators.loc_userName).sendKeys(user);
             waitForElementToBePresent(Locators.loc_password).sendKeys(password);
             waitForElementToBePresent(Locators.loc_login).click();
-            Thread.sleep(5000);
+            Thread.sleep(7000);
             if (waitForElementToBePresent(Locators.loc_lnkProfile).isDisplayed())
                 return true;
         } catch (Exception e) {
@@ -78,7 +78,7 @@ public class CommonSysco {
         waitForElementToBePresent(Locators.loc_lists).click();
         try {
             Thread.sleep(3000);
-            By loc_listItems = By.xpath(Locators.listItems.replace("listName", listName));
+            By loc_listItems = By.xpath(String.format(Locators.listItems, listName));
             waitForElementToBePresent(loc_listItems).click();
             return;
         } catch (Exception ex) {
