@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 
 public class Locators {
     public static By loc_userNameDiscovery = By.xpath("//input[@data-id='txt_login_email']");
-    public static By loc_nextDiscovery = By.xpath("//input[@data-id='btn_next']");
+    public static By loc_nextDiscovery = By.xpath("//button[@data-id='btn_next']");
     public static By loc_userName = By.id("okta-signin-username");
     public static By loc_password = By.id("okta-signin-password");
     public static By loc_login = By.id("okta-signin-submit");
