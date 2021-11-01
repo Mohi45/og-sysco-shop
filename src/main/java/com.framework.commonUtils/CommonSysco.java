@@ -25,12 +25,12 @@ public class CommonSysco extends ParentPage {
         try {
             driver.get(Constant.urlSyscoShop);
             Thread.sleep(4000);
-            waitForElementToAppear(Locators.loc_userNameDiscovery).sendKeys(user);
-            waitForElementToAppear(Locators.loc_nextDiscovery).click();
+            waitForElementToBePresent(Locators.loc_userNameDiscovery).sendKeys(user);
+            waitForElementToBePresent(Locators.loc_nextDiscovery).click();
 //            waitForElementToAppear(Locators.loc_userName).sendKeys(user);
-            waitForElementToAppear(Locators.loc_password).sendKeys(password);
-            waitForElementToAppear(Locators.loc_login).click();
-            if (waitForElementToAppear(Locators.loc_lnkProfile).isDisplayed())
+            waitForElementToBePresent(Locators.loc_password).sendKeys(password);
+            waitForElementToBePresent(Locators.loc_login).click();
+            if (waitForElementToBePresent(Locators.loc_lnkProfile).isDisplayed())
                 return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,9 +40,9 @@ public class CommonSysco extends ParentPage {
 
     public void doLogout() {
         try {
-            waitForElementToAppear(Locators.loc_lnkProfile).click();
-            waitForElementToAppear(Locators.loc_signOut).click();
-            waitForElementToAppear(Locators.loc_confirmLogout).click();
+            waitForElementToBePresent(Locators.loc_lnkProfile).click();
+            waitForElementToBePresent(Locators.loc_signOut).click();
+            waitForElementToBePresent(Locators.loc_confirmLogout).click();
         }catch (Exception ex){
             logger.debug("failed to logout");
         }
@@ -50,16 +50,16 @@ public class CommonSysco extends ParentPage {
 
     private void selectList(String listName) {
         // add more logic
-        waitForElementToAppear(Locators.loc_lists).click();
+        waitForElementToBePresent(Locators.loc_lists).click();
         try {
             By loc_listItems = By.xpath(Locators.listItems.replace("listName", listName));
-            waitForElementToAppear(loc_listItems).click();
+            waitForElementToBePresent(loc_listItems).click();
             return;
         } catch (Exception ex) {
             logger.debug("account not selected by default");
         }
-        waitForElementToAppear(Locators.loc_seeAllLists).click();
-        waitForElementToAppear(Locators.loc_allListDropIcon).click();
+        waitForElementToBePresent(Locators.loc_seeAllLists).click();
+        waitForElementToBePresent(Locators.loc_allListDropIcon).click();
         List<WebElement> elements = driver.findElements(Locators.loc_allListValues);
         for (WebElement element : elements) {
             if (element.getText().toLowerCase().contains(listName.toLowerCase())) {
@@ -70,16 +70,16 @@ public class CommonSysco extends ParentPage {
     }
 
     public void exportList(String restName) {
-        waitForElementToAppear(Locators.loc_moreActions).click();
-        waitForElementToAppear(Locators.loc_exportList).click();
-        waitForElementToAppear(Locators.loc_includePrices).click();
-        waitForElementToAppear(Locators.loc_inputFileName).sendKeys(restName + Instant.now().getEpochSecond());
-        waitForElementToAppear(Locators.loc_btnExport).click();
+        waitForElementToBePresent(Locators.loc_moreActions).click();
+        waitForElementToBePresent(Locators.loc_exportList).click();
+        waitForElementToBePresent(Locators.loc_includePrices).click();
+        waitForElementToBePresent(Locators.loc_inputFileName).sendKeys(restName + Instant.now().getEpochSecond());
+        waitForElementToBePresent(Locators.loc_btnExport).click();
     }
 
     private void selectAccount(String accountName) {
         try {
-            WebElement ele = waitForElementToAppear(Locators.loc_accountNumDash);
+            WebElement ele = waitForElementToBePresent(Locators.loc_accountNumDash);
             if (ele.getText().contains(accountName))
                 return;
             else
@@ -87,8 +87,8 @@ public class CommonSysco extends ParentPage {
         } catch (Exception ex) {
             logger.debug(ex.getLocalizedMessage());
         }
-        waitForElementToAppear(Locators.loc_accountDdlBtn).click();
-        waitForElementToAppear(Locators.loc_accountSearchBtn).sendKeys(accountName);
+        waitForElementToBePresent(Locators.loc_accountDdlBtn).click();
+        waitForElementToBePresent(Locators.loc_accountSearchBtn).sendKeys(accountName);
         List<WebElement> elements = driver.findElements(Locators.loc_allAcNums);
         for (WebElement element : elements) {
             if (element.getText().contains(accountName)) {
