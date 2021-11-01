@@ -16,7 +16,7 @@ public class CommonSysco {
 
     private final static Logger logger = Logger.getLogger(CommonSysco.class);
     private static final int TIMEOUT = 5;
-    private static final int POLLING = 100;
+    private static final int POLLING = 500;
 
     protected WebDriver driver;
     private WebDriverWait wait;
