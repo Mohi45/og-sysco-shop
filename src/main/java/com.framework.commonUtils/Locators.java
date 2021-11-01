@@ -3,6 +3,8 @@ package com.framework.commonUtils;
 import org.openqa.selenium.By;
 
 public class Locators {
+    public static By loc_userNameDiscovery = By.xpath("//input[@id='idp-discovery-username']");
+    public static By loc_nextDiscovery = By.xpath("//input[@id='idp-discovery-submit']");
     public static By loc_userName = By.id("okta-signin-username");
     public static By loc_password = By.id("okta-signin-password");
     public static By loc_login = By.id("okta-signin-submit");

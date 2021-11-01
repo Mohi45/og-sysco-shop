@@ -23,7 +23,9 @@ public class CommonSysco extends ParentPage {
 
     public boolean doLogin(String user, String password) {
         try {
-            waitForElementToAppear(Locators.loc_userName).sendKeys(user);
+            waitForElementToAppear(Locators.loc_userNameDiscovery).sendKeys(user);
+            waitForElementToAppear(Locators.loc_nextDiscovery).click();
+//            waitForElementToAppear(Locators.loc_userName).sendKeys(user);
             waitForElementToAppear(Locators.loc_password).sendKeys(password);
             waitForElementToAppear(Locators.loc_login).click();
             if (waitForElementToAppear(Locators.loc_lnkProfile).isDisplayed())
