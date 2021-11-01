@@ -49,7 +49,7 @@ public class CommonSysco {
         try {
             driver.get(Constant.urlSyscoShop);
             Thread.sleep(4000);
-            driver.findElement(Locators.loc_userNameDiscovery).sendKeys(user);
+            driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[2]/main/div[2]/div/div/form/div[1]/div[2]/div[1]/div[2]/span/input")).sendKeys(user);
             waitForElementToBePresent(Locators.loc_userNameDiscovery).sendKeys(user);
             waitForElementToBePresent(Locators.loc_nextDiscovery).click();
 //            waitForElementToAppear(Locators.loc_userName).sendKeys(user);
