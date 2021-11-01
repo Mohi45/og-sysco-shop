@@ -1,10 +1,7 @@
 package com.framework.commonUtils;
 
 import org.apache.log4j.Logger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
@@ -59,6 +56,7 @@ public class CommonSysco {
             waitForElementToBePresent(Locators.loc_nextDiscovery).click();
 //            waitForElementToAppear(Locators.loc_userName).sendKeys(user);
             waitForElementToAppear(Locators.loc_password).sendKeys(password);
+            waitForElementToAppear(Locators.loc_password).sendKeys(Keys.ENTER);
             Thread.sleep(1000);
             waitForElementToAppear(Locators.loc_login).click();
             Thread.sleep(7000);
