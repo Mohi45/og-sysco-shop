@@ -1,12 +1,14 @@
 package com.framework.commonUtils;
 
 import org.apache.log4j.Logger;
-
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.*;
-import javax.mail.internet.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import java.io.File;
 import java.util.Properties;
 
@@ -60,15 +62,15 @@ public class SendMailSSL {
      * System.out.println("send mail success"); return store; }
      */
 
-    public static void sendMailActionXlsx(String PurveyorName, String Restaurantname) {
-        String to = Constant.sendMailToDE;
+    public static void sendMailAction(String PurveyorName, String RestaurantName, String fileType) {
+        String to = System.getProperty("email");
         String user = Constant.sendMailFrom;// change
         // accordingly
         try {
             // get connection
             Session session = createConnection();
             // String filepath = RandomAction.setdownloadDir();
-            File GFS_OG = RandomAction.getLatestFilefromDirxlsx(System.getProperty("user.home") + "\\Downloads\\");
+            File GFS_OG = RandomAction.getLatestFilefromDir(System.getProperty("user.home") + "\\Downloads\\", fileType);
             String filename = GFS_OG.getAbsolutePath();
             System.out.println(filename);
 
@@ -87,7 +89,7 @@ public class SendMailSSL {
             // InternetAddress("teamesave@gmail.com"));
 
             // Subject of mails
-            message.setSubject("OnLineMacro :: " + PurveyorName + " :: " + Restaurantname);
+            message.setSubject("OnLineMacro :: " + PurveyorName + " :: " + RestaurantName);
             // Body of mails
             // message.setContent("Cheney OG export- date & time : " +
             // RandomAction.getDate(), "text");
@@ -119,451 +121,12 @@ public class SendMailSSL {
              */
             Transport.send(message, messageBodyPart1.getAllRecipients());
 
-            System.out.println("Message send success for " + Restaurantname);
+            System.out.println("Message send success for " + RestaurantName);
 
-        } catch (MessagingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println(e.getMessage());
-            // TODO: handle exception
+            e.printStackTrace();
         }
-
-    }
-
-    public static void sendMailActionXls(String PurveyorName, String Restaurantname) {
-        String to = Constant.sendMailToDE;
-        String user = Constant.sendMailFrom;// change
-        // accordingly
-        try {
-            // get connection
-            Session session = createConnection();
-            // String filepath = RandomAction.setdownloadDir();
-            File GFS_OG = RandomAction.getLatestFilefromDirxls(System.getProperty("user.home") + "\\Downloads\\");
-            String filename = GFS_OG.getAbsolutePath();
-            System.out.println(filename);
-
-            MimeMessage message = new MimeMessage(session);
-            // message.setFrom(new InternetAddress(user));
-            // message.addRecipient(Message.RecipientType.TO, new
-            // InternetAddress(to));
-            // message.setSubject("Message Alert");
-
-            MimeMessage messageBodyPart1 = new MimeMessage(session);
-            messageBodyPart1.setFrom(new InternetAddress(user));// change
-            // accordingly
-            messageBodyPart1.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-
-            // smessageBodyPart1.addRecipient(Message.RecipientType.CC, new
-            // InternetAddress("teamesave@gmail.com"));
-
-            // Subject of mails
-            message.setSubject("OnLineMacro :: " + PurveyorName + " :: " + Restaurantname);
-            // Body of mails
-            // message.setContent("Cheney OG export- date & time : " +
-            // RandomAction.getDate(), "text");
-
-            // message.setText();
-
-            // 4) create new MimeBodyPart object and set DataHandler object to
-            // this object
-            MimeBodyPart messageBodyPart2 = new MimeBodyPart();
-
-            DataSource source = new FileDataSource(filename);
-            messageBodyPart2.setDataHandler(new DataHandler(source));
-            messageBodyPart2.setFileName(filename);
-
-            // 5) create Multipart object and add MimeBodyPart objects to this
-            // object
-            Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(messageBodyPart2);
-
-            // 6) set the multiplart object to the message object
-            message.setContent(multipart);
-
-            // send message
-            /*
-             * Transport transport = session.getTransport("smtp");
-             * transport.connect(Constant.GmailURL,Constant.GmailUser ,
-             * Constant.GmailPassword); transport.sendMessage(message,
-             * messageBodyPart1.getAllRecipients());
-             */
-            Transport.send(message, messageBodyPart1.getAllRecipients());
-
-            System.out.println("Message send success for " + Restaurantname);
-
-        } catch (MessagingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-            // TODO: handle exception
-        }
-
-    }
-
-    public static void sendMailActionPDF(String PurveyorName, String Restaurantname) {
-        String to = Constant.sendMailToDE;
-        String user = Constant.sendMailFrom;// change
-        // accordingly
-        try {
-            // get connection
-            Session session = createConnection();
-            // String filepath = RandomAction.setdownloadDir();
-            File GFS_OG = RandomAction.getLatestFilefromDirPDF(System.getProperty("user.home") + "\\Downloads\\");
-            String filename = GFS_OG.getAbsolutePath();
-            System.out.println(filename);
-
-            MimeMessage message = new MimeMessage(session);
-            // message.setFrom(new InternetAddress(user));
-            // message.addRecipient(Message.RecipientType.TO, new
-            // InternetAddress(to));
-            // message.setSubject("Message Alert");
-
-            MimeMessage messageBodyPart1 = new MimeMessage(session);
-            messageBodyPart1.setFrom(new InternetAddress(user));// change
-            // accordingly
-            messageBodyPart1.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-
-            // smessageBodyPart1.addRecipient(Message.RecipientType.CC, new
-            // InternetAddress("teamesave@gmail.com"));
-
-            // Subject of mails
-            message.setSubject("OnLineMacro :: " + PurveyorName + " :: " + Restaurantname);
-            // Body of mails
-            // message.setContent("Cheney OG export- date & time : " +
-            // RandomAction.getDate(), "text");
-
-            // message.setText();
-
-            // 4) create new MimeBodyPart object and set DataHandler object to
-            // this object
-            MimeBodyPart messageBodyPart2 = new MimeBodyPart();
-
-            DataSource source = new FileDataSource(filename);
-            messageBodyPart2.setDataHandler(new DataHandler(source));
-            messageBodyPart2.setFileName(filename);
-
-            // 5) create Multipart object and add MimeBodyPart objects to this
-            // object
-            Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(messageBodyPart2);
-
-            // 6) set the multiplart object to the message object
-            message.setContent(multipart);
-
-            // send message
-            /*
-             * Transport transport = session.getTransport("smtp");
-             * transport.connect(Constant.GmailURL,Constant.GmailUser ,
-             * Constant.GmailPassword); transport.sendMessage(message,
-             * messageBodyPart1.getAllRecipients());
-             */
-            Transport.send(message, messageBodyPart1.getAllRecipients());
-
-            System.out.println("Message send success for " + Restaurantname);
-
-        } catch (MessagingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-            // TODO: handle exception
-        }
-
-    }
-
-    public static void sendMailActionCsvDE(String PurveyorName, String Restaurantname) {
-        String to = Constant.sendMailToDE;
-        String user = Constant.sendMailFrom;// change
-        // accordingly
-        try {
-            // get connection
-            Session session = createConnection();
-            // String filepath = RandomAction.setdownloadDir();
-            File GFS_OG = RandomAction.getLatestFilefromDirCsv(System.getProperty("user.home") + "\\Downloads\\");
-            String filename = GFS_OG.getAbsolutePath();
-            System.out.println(filename);
-
-            MimeMessage message = new MimeMessage(session);
-            // message.setFrom(new InternetAddress(user));
-            // message.addRecipient(Message.RecipientType.TO, new
-            // InternetAddress(to));
-            // message.setSubject("Message Alert");
-
-            MimeMessage messageBodyPart1 = new MimeMessage(session);
-            messageBodyPart1.setFrom(new InternetAddress(user));// change
-            // accordingly
-            messageBodyPart1.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-
-            // smessageBodyPart1.addRecipient(Message.RecipientType.CC, new
-            // InternetAddress("teamesave@gmail.com"));
-
-            // Subject of mails
-            message.setSubject("OnLineMacro :: " + PurveyorName + " :: " + Restaurantname);
-            // Body of mails
-            // message.setContent("Cheney OG export- date & time : " +
-            // RandomAction.getDate(), "text");
-
-            // message.setText();
-
-            // 4) create new MimeBodyPart object and set DataHandler object to
-            // this object
-            MimeBodyPart messageBodyPart2 = new MimeBodyPart();
-
-            DataSource source = new FileDataSource(filename);
-            messageBodyPart2.setDataHandler(new DataHandler(source));
-            messageBodyPart2.setFileName(filename);
-
-            // 5) create Multipart object and add MimeBodyPart objects to this
-            // object
-            Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(messageBodyPart2);
-
-            // 6) set the multiplart object to the message object
-            message.setContent(multipart);
-
-            // send message
-            /*
-             * Transport transport = session.getTransport("smtp");
-             * transport.connect(Constant.GmailURL,Constant.GmailUser ,
-             * Constant.GmailPassword); transport.sendMessage(message,
-             * messageBodyPart1.getAllRecipients());
-             */
-            Transport.send(message, messageBodyPart1.getAllRecipients());
-
-            System.out.println("Message send success for " + Restaurantname);
-
-        } catch (AddressException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (MessagingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-            // TODO: handle exception
-        }
-
-    }
-
-    public static void sendMailActionCsvGFS(String PurveyorName, String Restaurantname) {
-        String to = Constant.sendMailToDE;
-        String user = Constant.sendMailFrom;// change
-        // accordingly
-        try {
-            // get connection
-            Session session = createConnection();
-            // String filepath = RandomAction.setdownloadDir();
-            File GFS_OG = RandomAction.getLatestFilefromDirCsvGFS(System.getProperty("user.home") + "\\Downloads\\");
-            String filename = GFS_OG.getAbsolutePath();
-            System.out.println(filename);
-
-            MimeMessage message = new MimeMessage(session);
-            // message.setFrom(new InternetAddress(user));
-            // message.addRecipient(Message.RecipientType.TO, new
-            // InternetAddress(to));
-            // message.setSubject("Message Alert");
-
-            MimeMessage messageBodyPart1 = new MimeMessage(session);
-            messageBodyPart1.setFrom(new InternetAddress(user));// change
-            // accordingly
-            messageBodyPart1.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-
-            // smessageBodyPart1.addRecipient(Message.RecipientType.CC, new
-            // InternetAddress("teamesave@gmail.com"));
-
-            // Subject of mails
-            message.setSubject("OnLineMacro :: " + PurveyorName + " :: " + Restaurantname);
-            // Body of mails
-            // message.setContent("Cheney OG export- date & time : " +
-            // RandomAction.getDate(), "text");
-
-            // message.setText();
-
-            // 4) create new MimeBodyPart object and set DataHandler object to
-            // this object
-            MimeBodyPart messageBodyPart2 = new MimeBodyPart();
-
-            DataSource source = new FileDataSource(filename);
-            messageBodyPart2.setDataHandler(new DataHandler(source));
-            messageBodyPart2.setFileName(filename);
-
-            // 5) create Multipart object and add MimeBodyPart objects to this
-            // object
-            Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(messageBodyPart2);
-
-            // 6) set the multiplart object to the message object
-            message.setContent(multipart);
-
-            // send message
-            /*
-             * Transport transport = session.getTransport("smtp");
-             * transport.connect(Constant.GmailURL,Constant.GmailUser ,
-             * Constant.GmailPassword); transport.sendMessage(message,
-             * messageBodyPart1.getAllRecipients());
-             */
-            Transport.send(message, messageBodyPart1.getAllRecipients());
-
-            System.out.println("Message send success for " + Restaurantname);
-
-        } catch (AddressException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (MessagingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-            // TODO: handle exception
-        }
-
-    }
-
-    public static void sendMailActionCsvES(String PurveyorName, String Restaurantname) {
-        String to = Constant.sendMailToEsave;
-        String user = Constant.sendMailFrom;// change
-        // accordingly
-        try {
-            // get connection
-            Session session = createConnection();
-            // String filepath = RandomAction.setdownloadDir();
-            File GFS_OG = RandomAction.getLatestFilefromDirCsv(System.getProperty("user.home") + "\\Downloads\\");
-            String filename = GFS_OG.getAbsolutePath();
-            System.out.println(filename);
-
-            MimeMessage message = new MimeMessage(session);
-            // message.setFrom(new InternetAddress(user));
-            // message.addRecipient(Message.RecipientType.TO, new
-            // InternetAddress(to));
-            // message.setSubject("Message Alert");
-
-            MimeMessage messageBodyPart1 = new MimeMessage(session);
-            messageBodyPart1.setFrom(new InternetAddress(user));// change
-            // accordingly
-            messageBodyPart1.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-
-            // smessageBodyPart1.addRecipient(Message.RecipientType.CC, new
-            // InternetAddress("teamesave@gmail.com"));
-
-            // Subject of mails
-            message.setSubject("OnLineMacro :: " + PurveyorName + " :: " + Restaurantname);
-            // Body of mails
-            // message.setContent("Cheney OG export- date & time : " +
-            // RandomAction.getDate(), "text");
-
-            // message.setText();
-
-            // 4) create new MimeBodyPart object and set DataHandler object to
-            // this object
-            MimeBodyPart messageBodyPart2 = new MimeBodyPart();
-
-            DataSource source = new FileDataSource(filename);
-            messageBodyPart2.setDataHandler(new DataHandler(source));
-            messageBodyPart2.setFileName(filename);
-
-            // 5) create Multipart object and add MimeBodyPart objects to this
-            // object
-            Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(messageBodyPart2);
-
-            // 6) set the multiplart object to the message object
-            message.setContent(multipart);
-
-            // send message
-            /*
-             * Transport transport = session.getTransport("smtp");
-             * transport.connect(Constant.GmailURL,Constant.GmailUser ,
-             * Constant.GmailPassword); transport.sendMessage(message,
-             * messageBodyPart1.getAllRecipients());
-             */
-            Transport.send(message, messageBodyPart1.getAllRecipients());
-
-            System.out.println("Message send success for " + Restaurantname);
-
-        } catch (AddressException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (MessagingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-            // TODO: handle exception
-        }
-
-    }
-
-    public static void sendReport(String Subject, String filename) {
-        try {
-            // Properties Constant = new Properties();
-            // Constant.load(new FileInputStream("Config.properties"));
-            // String to = Constant.getProperty("reportTo");
-            // String user = Constant.getProperty("sendMailFrom");// change
-            // // accordingly
-            String user = Constant.sendMailFrom;
-            String[] to = Constant.reportTo;
-            String cc = Constant.cc;
-            // get connection
-            Session session = createConnection();
-
-            MimeMessage message = new MimeMessage(session);
-
-            MimeMessage messageBodyPart1 = new MimeMessage(session);
-            messageBodyPart1.setFrom(new InternetAddress(user));// change
-            // accordingly
-
-            InternetAddress[] recipientAddress = new InternetAddress[to.length];
-            int counter = 0;
-            for (String recipient : to) {
-                recipientAddress[counter] = new InternetAddress(recipient.trim());
-                counter++;
-            }
-
-            messageBodyPart1.addRecipients(Message.RecipientType.TO, recipientAddress);
-            messageBodyPart1.setRecipient(Message.RecipientType.CC, new InternetAddress(cc));
-
-            // Subject of mails
-            message.setSubject(Subject);
-            // Body of mails
-            String date = RandomAction.getDate();
-            message.setContent("Attached is the report for the OG export on : " + date, "text");
-
-            // message.setText();
-
-            // 4) create new MimeBodyPart object and set DataHandler object to
-            // this object
-            MimeBodyPart messageBodyPart2 = new MimeBodyPart();
-
-            DataSource source = new FileDataSource(filename);
-            messageBodyPart2.setDataHandler(new DataHandler(source));
-            messageBodyPart2.setFileName(filename);
-            logger.info("Attached file - " + filename);
-
-            Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(messageBodyPart2);
-
-            message.setContent(multipart);
-
-            Transport.send(message, messageBodyPart1.getAllRecipients());
-
-            logger.info("Message send success");
-
-        } catch (MessagingException e) {
-            e.printStackTrace();
-            logger.info("Technical issue in sending reporting");
-        } catch (Exception e) {
-            logger.info(e.getMessage());
-            logger.info("Technical issue in sending reporting");
-        }
-
     }
 
     public static void sendReports(String Subject, String... filenames) {
@@ -607,7 +170,7 @@ public class SendMailSSL {
             // this object
             MimeBodyPart messageBodyPart2 = new MimeBodyPart();
             for (String filename : filenames) {
-                DataSource source = new FileDataSource("C:\\Users\\ImportOrder\\Log\\" + filename);
+                DataSource source = new FileDataSource(filename);
                 messageBodyPart2.setDataHandler(new DataHandler(source));
                 messageBodyPart2.setFileName(filename);
                 logger.info("Attached file - " + filename);
@@ -622,11 +185,8 @@ public class SendMailSSL {
 
             logger.info("Message send success");
 
-        } catch (MessagingException e) {
-            e.printStackTrace();
-            logger.info("Technical issue in sending reporting");
         } catch (Exception e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
             logger.info("Technical issue in sending reporting");
         }
 

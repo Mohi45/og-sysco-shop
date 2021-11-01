@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>diningedge</groupId>
-    <artifactId>gfsOnline</artifactId>
+    <artifactId>sysco-shop-online</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>gfsOnline</name>
+    <name>sysco-shop-online</name>
     <url>http://maven.apache.org</url>
 
     <properties>

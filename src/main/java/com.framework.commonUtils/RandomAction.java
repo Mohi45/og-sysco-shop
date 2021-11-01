@@ -107,11 +107,10 @@ public class RandomAction {
         return driver;
     }
 
-    public static File getLatestFilefromDirxlsx(String dirPath) {
-
+    public static File getLatestFilefromDir(String dirPath, String fileType) {
         File getLatestFilefromDir = null;
         File dir = new File(dirPath);
-        FileFilter fileFilter = new WildcardFileFilter("*." + "xlsx");
+        FileFilter fileFilter = new WildcardFileFilter("*." + fileType);
         File[] files = dir.listFiles(fileFilter);
 
         if (files.length > 0) {
@@ -121,101 +120,7 @@ public class RandomAction {
         }
 
         return getLatestFilefromDir;
-
-        /*
-         * File dir = new File(dirPath); File[] files = dir.listFiles(); if (files ==
-         * null || files.length == 0) { return null; }
-         *
-         * File lastModifiedFile = files[0]; for (int i = 1; i < files.length; i++) { if
-         * (lastModifiedFile.lastModified() < files[i].lastModified()) {
-         * lastModifiedFile = files[i]; } } return lastModifiedFile;
-         */
     }
-
-    public static File getLatestFilefromDirxls(String dirPath) {
-
-        File getLatestFilefromDir = null;
-        File dir = new File(dirPath);
-        FileFilter fileFilter = new WildcardFileFilter("*." + "xls");
-        File[] files = dir.listFiles(fileFilter);
-
-        if (files.length > 0) {
-            /** The newest file comes first **/
-            Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
-            getLatestFilefromDir = files[0];
-        }
-
-        return getLatestFilefromDir;
-
-        /*
-         * File dir = new File(dirPath); File[] files = dir.listFiles(); if (files ==
-         * null || files.length == 0) { return null; }
-         *
-         * File lastModifiedFile = files[0]; for (int i = 1; i < files.length; i++) { if
-         * (lastModifiedFile.lastModified() < files[i].lastModified()) {
-         * lastModifiedFile = files[i]; } } return lastModifiedFile;
-         */
-    }
-
-    public static File getLatestFilefromDirPDF(String dirPath) {
-
-        File getLatestFilefromDir = null;
-        File dir = new File(dirPath);
-        FileFilter fileFilter = new WildcardFileFilter("*." + "pdf");
-        File[] files = dir.listFiles(fileFilter);
-
-        if (files.length > 0) {
-            /** The newest file comes first **/
-            Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
-            getLatestFilefromDir = files[0];
-        }
-
-        return getLatestFilefromDir;
-
-        /*
-         * File dir = new File(dirPath); File[] files = dir.listFiles(); if (files ==
-         * null || files.length == 0) { return null; }
-         *
-         * File lastModifiedFile = files[0]; for (int i = 1; i < files.length; i++) { if
-         * (lastModifiedFile.lastModified() < files[i].lastModified()) {
-         * lastModifiedFile = files[i]; } } return lastModifiedFile;
-         */
-    }
-
-    public static File getLatestFilefromDirCsv(String dirPath) {
-
-        File getLatestFilefromDir = null;
-        File dir = new File(dirPath);
-        FileFilter fileFilter = new WildcardFileFilter("*." + "csv");
-        File[] files = dir.listFiles(fileFilter);
-
-        if (files.length > 0) {
-            /** The newest file comes first **/
-            Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
-            getLatestFilefromDir = files[0];
-        }
-
-        return getLatestFilefromDir;
-
-    }
-
-    public static File getLatestFilefromDirCsvGFS(String dirPath) {
-
-        File getLatestFilefromDir = null;
-        File dir = new File(dirPath);
-        FileFilter fileFilter = new WildcardFileFilter("CustomerItemList.csv");
-        File[] files = dir.listFiles(fileFilter);
-
-        if (files.length > 0) {
-            /** The newest file comes first **/
-            Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
-            getLatestFilefromDir = files[0];
-        }
-
-        return getLatestFilefromDir;
-
-    }
-
     public static void DownloadOG(Robot robot, WebDriver driver) {
         try {
             robot = new Robot();

@@ -1,4 +1,4 @@
-package com.edge.GFS.online;
+package com.edge.syscoshop.online;
 
 import com.framework.commonUtils.CommonSysco;
 import com.framework.commonUtils.ExcelFunctions;
@@ -32,7 +32,7 @@ public class TestSyscoExecutor {
     // projectPath + "\\config\\ExportEngineInput.xlsx";
     public static SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
     public static String reportFile = System.getProperty("user.home")
-            + "\\Desktop\\Reports\\GFS_OG_report\\ExportSummary_SyscoShop_"
+            + "\\Desktop\\Reports\\SyscoShop_OG_report\\ExportSummary_SyscoShop_"
             + new Date().toString().replace(":", "").replace(" ", "") + ".xlsx";
     // for Edge -
     // "C:\\Users\\Edge\\Desktop\\Reports\\CheneyOG_report\\ExportSummary_Cheney_" +
@@ -74,6 +74,7 @@ public class TestSyscoExecutor {
         logger.info("***********StartTest*********");
         RandomAction.deleteFiles(System.getProperty("user.home") + "\\Downloads",".csv");
         driver = RandomAction.openBrowser("Chrome", path);
+        driver.manage().deleteAllCookies();
         commonSysco = new CommonSysco(driver);
         logger.info("Invoked browser .. ");
     }
@@ -203,8 +204,8 @@ public class TestSyscoExecutor {
                         exportstatus = "Pass";
                         detailedstatus = "OG exported succesfully";
                         et.log(LogStatus.PASS, detailedstatus);
-                        Thread.sleep(8000);
-                        SendMailSSL.sendMailActionCsvGFS(purveyor.trim(), restaurant_name.trim());
+                        Thread.sleep(5000);
+                        SendMailSSL.sendMailAction(purveyor.trim(), restaurant_name.trim(), "csv");
                     } else {
                         emailMessageExport = "Failed";
                         exportstatus = "Failed";

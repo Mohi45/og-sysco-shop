@@ -35,9 +35,13 @@ public class CommonSysco extends ParentPage {
     }
 
     public void doLogout() {
-        waitForElementToAppear(Locators.loc_lnkProfile).click();
-        waitForElementToAppear(Locators.loc_signOut).click();
-        waitForElementToAppear(Locators.loc_confirmLogout).click();
+        try {
+            waitForElementToAppear(Locators.loc_lnkProfile).click();
+            waitForElementToAppear(Locators.loc_signOut).click();
+            waitForElementToAppear(Locators.loc_confirmLogout).click();
+        }catch (Exception ex){
+            logger.debug("failed to logout");
+        }
     }
 
     private void selectList(String listName) {
@@ -95,13 +99,11 @@ public class CommonSysco extends ParentPage {
             selectAccount(accountName);
             selectList(listName);
             exportList(restName);
+            doLogout();
             return true;
         }catch (Exception ex){
             ex.printStackTrace();
             return false;
         }
-
     }
-
-
 }

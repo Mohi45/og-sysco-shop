@@ -3,7 +3,7 @@
 <suite name="Suite">
   <test name="Test">
     <classes>
-      <class name="com.edge.GFS.online.TestSyscoExecutor"/>
+      <class name="com.edge.syscoshop.online.TestSyscoExecutor"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
