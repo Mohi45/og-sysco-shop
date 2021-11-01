@@ -14,7 +14,7 @@ public class Constant {
 	
 	public static final String filename = Constant.Path_TestData +"//"+ Constant.File_TestData;
 	
-	public static final String urlSyscoShop = "https://secure.sysco.com";
+	public static final String urlSyscoShop = "https://shop.sysco.com/auth/login";
 	
 	public static final  String saveDirectoryOG= "";
 	
