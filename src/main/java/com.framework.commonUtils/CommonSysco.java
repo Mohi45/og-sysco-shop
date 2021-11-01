@@ -76,6 +76,7 @@ public class CommonSysco {
     private void selectList(String listName) {
         // add more logic
         waitForElementToBePresent(Locators.loc_lists).click();
+        logger.debug("list name is "+ listName);
         try {
             Thread.sleep(3000);
             By loc_listItems = By.xpath("//li[contains(@data-dd-action-name,'"+listName+"')]");
@@ -100,14 +101,10 @@ public class CommonSysco {
         }
     }
 
-    public void exportList(String restName) {
+    public void exportList(String restName) throws InterruptedException {
         waitForElementToBePresent(Locators.loc_moreActions).click();
+        Thread.sleep(3000);
         waitForElementToBePresent(Locators.loc_exportList).click();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         waitForElementToBePresent(Locators.loc_includePrices).click();
         waitForElementToBePresent(Locators.loc_inputFileName).sendKeys(restName + Instant.now().getEpochSecond());
         waitForElementToBePresent(Locators.loc_btnExport).click();
