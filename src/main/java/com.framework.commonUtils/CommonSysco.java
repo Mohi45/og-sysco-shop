@@ -78,7 +78,7 @@ public class CommonSysco {
         waitForElementToBePresent(Locators.loc_lists).click();
         try {
             Thread.sleep(3000);
-            By loc_listItems = By.xpath(String.format(Locators.listItems, listName));
+            By loc_listItems = By.xpath("//li[contains(@data-dd-action-name,'"+listName+"')]");
             waitForElementToBePresent(loc_listItems).click();
             return;
         } catch (Exception ex) {
