@@ -48,8 +48,7 @@ public class CommonSysco {
     public boolean doLogin(String user, String password) {
         try {
             driver.get(Constant.urlSyscoShop);
-            Thread.sleep(15000);
-            driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[2]/main/div[2]/div/div/form/div[1]/div[2]/div[1]/div[2]/span/input")).sendKeys(user);
+            Thread.sleep(4000);
             waitForElementToBePresent(Locators.loc_userNameDiscovery).sendKeys(user);
             waitForElementToBePresent(Locators.loc_nextDiscovery).click();
 //            waitForElementToAppear(Locators.loc_userName).sendKeys(user);
