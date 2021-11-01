@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -69,21 +70,26 @@ public class CommonSysco {
             waitForElementToBePresent(Locators.loc_signOut).click();
             waitForElementToBePresent(Locators.loc_confirmLogout).click();
         }catch (Exception ex){
-            logger.debug("failed to logout");
+            logger.info("failed to logout");
         }
     }
 
-    private void selectList(String listName) {
+    private void selectList(String listName) throws Exception {
         // add more logic
-        waitForElementToBePresent(Locators.loc_lists).click();
-        logger.debug("list name is "+ listName);
+        waitForElementToBePresent(Locators.loc_lists);
+        new Actions(driver).
+                moveToElement(driver.findElement(Locators.loc_lists)).
+                clickAndHold().
+                build().
+                perform();
+
+        logger.info("list name is "+ listName);
         try {
-            Thread.sleep(3000);
             By loc_listItems = By.xpath("//li[contains(@data-dd-action-name,'"+listName+"')]");
             waitForElementToBePresent(loc_listItems).click();
             return;
         } catch (Exception ex) {
-            logger.debug("account not selected by default");
+            logger.info("account not selected by default");
         }
         waitForElementToBePresent(Locators.loc_seeAllLists).click();
         try {
@@ -99,6 +105,7 @@ public class CommonSysco {
                 break;
             }
         }
+        throw new Exception("list Name not found in all lists");
     }
 
     public void exportList(String restName) throws InterruptedException {
@@ -118,7 +125,7 @@ public class CommonSysco {
             else
                 throw new Exception("account not selected by default");
         } catch (Exception ex) {
-            logger.debug(ex.getLocalizedMessage());
+            logger.info(ex.getLocalizedMessage());
         }
         try {
             Thread.sleep(3000);
