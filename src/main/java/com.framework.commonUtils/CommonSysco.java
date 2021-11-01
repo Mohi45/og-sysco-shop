@@ -4,21 +4,41 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Instant;
 import java.util.List;
 
-public class CommonSysco extends ParentPage {
+public class CommonSysco {
 
     private final static Logger logger = Logger.getLogger(CommonSysco.class);
-    public static WebDriver driver;
-    public static WebDriverWait wait;
+    private static final int TIMEOUT = 5;
+    private static final int POLLING = 100;
+
+    protected WebDriver driver;
+    private WebDriverWait wait;
     public static String fileFormat = "CSV";
 
+
+    protected WebElement waitForElementToAppear(By locator) {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    protected WebElement waitForElementToBePresent(By locator) {
+        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+    }
+
+    protected boolean waitForElementToDisappear(By locator) {
+        return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+    }
+
+    protected boolean waitForTextToDisappear(By locator, String text) {
+        return wait.until(ExpectedConditions.not(ExpectedConditions.textToBe(locator, text)));
+    }
+
     public CommonSysco(WebDriver driver) {
-        super(driver);
-        CommonSysco.driver = driver;
+        this.driver = driver;
     }
 
     public boolean doLogin(String user, String password) {
