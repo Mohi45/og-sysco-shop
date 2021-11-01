@@ -23,6 +23,8 @@ public class CommonSysco extends ParentPage {
 
     public boolean doLogin(String user, String password) {
         try {
+            driver.get(Constant.urlSyscoShop);
+            Thread.sleep(4000);
             waitForElementToAppear(Locators.loc_userNameDiscovery).sendKeys(user);
             waitForElementToAppear(Locators.loc_nextDiscovery).click();
 //            waitForElementToAppear(Locators.loc_userName).sendKeys(user);
