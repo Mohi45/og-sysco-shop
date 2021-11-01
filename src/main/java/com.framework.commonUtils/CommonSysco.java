@@ -2,6 +2,7 @@ package com.framework.commonUtils;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -16,7 +17,7 @@ import java.util.List;
 public class CommonSysco {
 
     private final static Logger logger = Logger.getLogger(CommonSysco.class);
-    private static final int TIMEOUT = 5;
+    private static final int TIMEOUT = 10;
     private static final int POLLING = 500;
 
     protected WebDriver driver;
@@ -26,6 +27,10 @@ public class CommonSysco {
 
     protected WebElement waitForElementToAppear(By locator) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    protected WebElement waitForElementToClickable(By locator) {
+        return wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
     protected WebElement waitForElementToBePresent(By locator) {
@@ -53,8 +58,9 @@ public class CommonSysco {
             waitForElementToBePresent(Locators.loc_userNameDiscovery).sendKeys(user);
             waitForElementToBePresent(Locators.loc_nextDiscovery).click();
 //            waitForElementToAppear(Locators.loc_userName).sendKeys(user);
-            waitForElementToBePresent(Locators.loc_password).sendKeys(password);
-            waitForElementToBePresent(Locators.loc_login).click();
+            waitForElementToAppear(Locators.loc_password).sendKeys(password);
+            Thread.sleep(1000);
+            waitForElementToAppear(Locators.loc_login).click();
             Thread.sleep(7000);
             if (waitForElementToBePresent(Locators.loc_lnkProfile).isDisplayed())
                 return true;
@@ -66,8 +72,14 @@ public class CommonSysco {
 
     public void doLogout() {
         try {
-            waitForElementToBePresent(Locators.loc_lnkProfile).click();
+            waitForElementToBePresent(Locators.loc_lnkProfile);
+            new Actions(driver).
+                    clickAndHold(driver.findElement(Locators.loc_lnkProfile)).
+                    build().
+                    perform();
+            Thread.sleep(1000);
             waitForElementToBePresent(Locators.loc_signOut).click();
+            Thread.sleep(1000);
             waitForElementToBePresent(Locators.loc_confirmLogout).click();
         }catch (Exception ex){
             logger.info("failed to logout");
@@ -75,50 +87,50 @@ public class CommonSysco {
     }
 
     private void selectList(String listName) throws Exception {
-        // add more logic
-        waitForElementToBePresent(Locators.loc_lists);
+/*        waitForElementToBePresent(Locators.loc_lists);
+        logger.info("list name is "+ listName);
         new Actions(driver).
                 moveToElement(driver.findElement(Locators.loc_lists)).
                 clickAndHold().
                 build().
                 perform();
-
-        logger.info("list name is "+ listName);
         try {
-            By loc_listItems = By.xpath("//li[contains(@data-dd-action-name,'"+listName+"')]");
+            By loc_listItems = By.xpath("//li[contains(text(),'"+listName+"')]");
             waitForElementToBePresent(loc_listItems).click();
             return;
         } catch (Exception ex) {
             logger.info("account not selected by default");
-        }
-        waitForElementToBePresent(Locators.loc_seeAllLists).click();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//            waitForElementToBePresent(Locators.loc_seeAllLists).click();
+            driver.get("https://shop.sysco.com/app/lists");
+        }*/
+        driver.get("https://shop.sysco.com/app/lists");
+        Thread.sleep(3000);
+
         waitForElementToBePresent(Locators.loc_allListDropIcon).click();
         List<WebElement> elements = driver.findElements(Locators.loc_allListValues);
         for (WebElement element : elements) {
-            if (element.getText().toLowerCase().contains(listName.toLowerCase())) {
+            String eleText = element.getText().toLowerCase();
+            if (eleText.contains(listName.toLowerCase())) {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+                Thread.sleep(500);
                 element.click();
-                break;
+                return;
             }
         }
         throw new Exception("list Name not found in all lists");
     }
 
     public void exportList(String restName) throws InterruptedException {
-        waitForElementToBePresent(Locators.loc_moreActions).click();
+        waitForElementToClickable(Locators.loc_moreActions).click();
+        waitForElementToClickable(Locators.loc_exportList).click();
         Thread.sleep(3000);
-        waitForElementToBePresent(Locators.loc_exportList).click();
-        waitForElementToBePresent(Locators.loc_includePrices).click();
-        waitForElementToBePresent(Locators.loc_inputFileName).sendKeys(restName + Instant.now().getEpochSecond());
-        waitForElementToBePresent(Locators.loc_btnExport).click();
+        waitForElementToClickable(Locators.loc_includePrices).click();
+//        waitForElementToBePresent(Locators.loc_inputFileName).sendKeys(restName + Instant.now().getEpochSecond());
+        waitForElementToClickable(Locators.loc_btnExport).click();
     }
 
-    private void selectAccount(String accountName) {
-        try {
+    private void selectAccount(String accountName) throws Exception {
+        /*try {
             WebElement ele = waitForElementToBePresent(Locators.loc_accountNumDash);
             if (ele.getText().contains(accountName))
                 return;
@@ -126,21 +138,19 @@ public class CommonSysco {
                 throw new Exception("account not selected by default");
         } catch (Exception ex) {
             logger.info(ex.getLocalizedMessage());
-        }
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        waitForElementToBePresent(Locators.loc_accountDdlBtn).click();
-        waitForElementToBePresent(Locators.loc_accountSearchBtn).sendKeys(accountName);
+        }*/
+        Thread.sleep(3000);
+
+        waitForElementToClickable(Locators.loc_accountDdlBtn).click();
+        waitForElementToAppear(Locators.loc_accountSearchBtn).sendKeys(accountName);
         List<WebElement> elements = driver.findElements(Locators.loc_allAcNums);
         for (WebElement element : elements) {
             if (element.getText().contains(accountName)) {
                 element.click();
-                break;
+                return;
             }
         }
+        throw new Exception("account Name not found in all account names");
     }
 
     public boolean stepsToExport(String restName, String accountName, String listName) {
@@ -151,7 +161,7 @@ public class CommonSysco {
 
             Thread.sleep(3000);
             if (listName != null && !listName.equalsIgnoreCase(""))
-            selectList(listName);
+                selectList(listName);
 
             Thread.sleep(3000);
             exportList(restName);

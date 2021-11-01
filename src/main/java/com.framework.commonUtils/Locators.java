@@ -19,7 +19,7 @@ public class Locators {
 
     public static By loc_moreActions = By.xpath("//button[@data-id='more-actions-btn']");
     public static By loc_exportList = By.xpath("//li[@data-id='export-list-btn']");
-    public static By loc_includePrices = By.xpath("//input[@data-id='export-list-modal-price-toggle']");
+    public static By loc_includePrices = By.xpath("//input[@data-id='export-list-modal-price-toggle']/following-sibling::div");
     public static By loc_inputFileName = By.xpath("//input[@data-id='export-list-modal-file-name-input']");
     public static By loc_btnExport = By.xpath("//button[@data-id='export-list-modal-export-btn']");
     public static By loc_btnCancelExport = By.xpath("//button[data-id='export-list-modal-cancel-btn']");
@@ -30,7 +30,7 @@ public class Locators {
 
     // select account - search
     public static By loc_accountDdlBtn = By.xpath("//div[@data-id='topPanel-dropdown-button-globalCustomerSelection']/button");
-    public static By loc_accountSearchBtn = By.xpath("//p[@data-id='txt_account_search_customer']");
+    public static By loc_accountSearchBtn = By.xpath("//input[contains(@placeholder,'Search for Customer or OpCo')]");
     public static By loc_accountNumDash = By.xpath("//div[@data-id='topPanel-dropdown-button-globalCustomerSelection']//div[contains(.,'acNum')]");
     //ddl all acNums
     public static By loc_allAcNums = By.xpath("//p[@data-id='globalCustomerSelectFlyout-dropdown-label-customerId']");
