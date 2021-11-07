@@ -104,7 +104,8 @@ public class CommonSysco {
         driver.get("https://shop.sysco.com/app/lists");
         Thread.sleep(3000);
 
-        waitForElementToBePresent(Locators.loc_allListDropIcon).click();
+        waitForElementToClickable(Locators.loc_allListDropIcon).click();
+        Thread.sleep(2000);
         List<WebElement> elements = driver.findElements(Locators.loc_allListValues);
         for (WebElement element : elements) {
             String eleText = element.getText().toLowerCase();
