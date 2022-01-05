@@ -105,7 +105,7 @@ public class CommonSysco {
 
         if (isListDdlPresent()) {
             waitForElementToClickable(Locators.loc_allListDropIcon).click();
-            Thread.sleep(2000);
+            Thread.sleep(1000);
             List<WebElement> elements = driver.findElements(Locators.loc_allListValues);
             for (WebElement element : elements) {
                 String eleText = element.getText().toLowerCase();
@@ -142,7 +142,7 @@ public class CommonSysco {
         waitForElementToClickable(Locators.loc_exportList).click();
         Thread.sleep(3000);
         waitForElementToClickable(Locators.loc_includePrices).click();
-        waitForElementToBePresent(Locators.loc_inputFileName).clear();
+        waitForElementToBePresent(Locators.loc_inputFileName).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
         Thread.sleep(500);
         waitForElementToBePresent(Locators.loc_inputFileName).sendKeys(restName.replaceAll("[^A-Za-z]+", "") + "_" + Instant.now().getEpochSecond());
         waitForElementToClickable(Locators.loc_btnExport).click();
@@ -174,15 +174,16 @@ public class CommonSysco {
 
     public boolean stepsToExport(String restName, String accountName, String listName) {
         try {
-            Thread.sleep(3000);
-            if (accountName != null && !accountName.equalsIgnoreCase(""))
+//            Thread.sleep(3000);
+            if (accountName != null && !accountName.equalsIgnoreCase("")){
+                Thread.sleep(3000);
                 selectAccount(accountName);
+            }
 
-            Thread.sleep(3000);
-            if (listName != null && !listName.equalsIgnoreCase(""))
+            if (listName != null && !listName.equalsIgnoreCase("")){
                 selectList(listName);
+            }
 
-            Thread.sleep(3000);
             exportList(restName);
 
             Thread.sleep(3000);
