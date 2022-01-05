@@ -8,7 +8,6 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Instant;
 import java.util.List;
 
 public class CommonSysco {
@@ -16,11 +15,16 @@ public class CommonSysco {
     private final static Logger logger = Logger.getLogger(CommonSysco.class);
     private static final int TIMEOUT = 10;
     private static final int POLLING = 500;
-
-    protected WebDriver driver;
-    private WebDriverWait wait;
     public static String fileFormat = "CSV";
+    protected WebDriver driver;
+    private final WebDriverWait wait;
 
+
+    public CommonSysco(WebDriver driver) {
+        this.driver = driver;
+        wait = new WebDriverWait(driver, TIMEOUT, POLLING);
+        PageFactory.initElements(new AjaxElementLocatorFactory(driver, TIMEOUT), this);
+    }
 
     protected WebElement waitForElementToAppear(By locator) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
@@ -40,12 +44,6 @@ public class CommonSysco {
 
     protected boolean waitForTextToDisappear(By locator, String text) {
         return wait.until(ExpectedConditions.not(ExpectedConditions.textToBe(locator, text)));
-    }
-
-    public CommonSysco(WebDriver driver) {
-        this.driver = driver;
-        wait = new WebDriverWait(driver, TIMEOUT, POLLING);
-        PageFactory.initElements(new AjaxElementLocatorFactory(driver, TIMEOUT), this);
     }
 
     public boolean doLogin(String user, String password) {
@@ -79,7 +77,7 @@ public class CommonSysco {
             waitForElementToBePresent(Locators.loc_signOut).click();
             Thread.sleep(1000);
             waitForElementToBePresent(Locators.loc_confirmLogout).click();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             logger.info("failed to logout");
         }
     }
@@ -104,19 +102,38 @@ public class CommonSysco {
         driver.get("https://shop.sysco.com/app/lists");
         Thread.sleep(3000);
 
-        waitForElementToClickable(Locators.loc_allListDropIcon).click();
-        Thread.sleep(2000);
-        List<WebElement> elements = driver.findElements(Locators.loc_allListValues);
-        for (WebElement element : elements) {
-            String eleText = element.getText().toLowerCase();
-            if (eleText.contains(listName.toLowerCase())) {
-                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-                Thread.sleep(500);
-                element.click();
-                return;
+        if (isListDdlPresent()) {
+            waitForElementToClickable(Locators.loc_allListDropIcon).click();
+            Thread.sleep(2000);
+            List<WebElement> elements = driver.findElements(Locators.loc_allListValues);
+            for (WebElement element : elements) {
+                String eleText = element.getText().toLowerCase();
+                if (eleText.contains(listName.toLowerCase())) {
+                    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+                    Thread.sleep(500);
+                    element.click();
+                    return;
+                }
             }
         }
-        throw new Exception("list Name not found in all lists");
+
+        try {
+            waitForElementToBePresent(By.xpath("//button[contains(.,'" + listName + "')]")).click();
+        } catch (Exception ex) {
+            logger.error("list sidebar also not present");
+        }
+//        throw new Exception("list Name not found in all lists");
+    }
+
+
+    public boolean isListDdlPresent() {
+        try {
+            waitForElementToAppear(Locators.loc_allListDropIcon);
+            return true;
+        } catch (Exception e) {
+            logger.debug("no list drop down");
+            return false;
+        }
     }
 
     public void exportList(String restName) throws InterruptedException {
@@ -168,7 +185,7 @@ public class CommonSysco {
             Thread.sleep(3000);
             doLogout();
             return true;
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
             return false;
         }
