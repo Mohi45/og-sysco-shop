@@ -8,6 +8,7 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Instant;
 import java.util.List;
 
 public class CommonSysco {
@@ -16,8 +17,8 @@ public class CommonSysco {
     private static final int TIMEOUT = 10;
     private static final int POLLING = 500;
     public static String fileFormat = "CSV";
-    protected WebDriver driver;
     private final WebDriverWait wait;
+    protected WebDriver driver;
 
 
     public CommonSysco(WebDriver driver) {
@@ -141,7 +142,8 @@ public class CommonSysco {
         waitForElementToClickable(Locators.loc_exportList).click();
         Thread.sleep(3000);
         waitForElementToClickable(Locators.loc_includePrices).click();
-//        waitForElementToBePresent(Locators.loc_inputFileName).sendKeys(restName + Instant.now().getEpochSecond());
+        waitForElementToBePresent(Locators.loc_inputFileName).clear();
+        waitForElementToBePresent(Locators.loc_inputFileName).sendKeys(restName + "_" + Instant.now().getEpochSecond());
         waitForElementToClickable(Locators.loc_btnExport).click();
     }
 
