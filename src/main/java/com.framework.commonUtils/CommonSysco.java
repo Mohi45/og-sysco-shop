@@ -144,7 +144,7 @@ public class CommonSysco {
         waitForElementToClickable(Locators.loc_includePrices).click();
         waitForElementToBePresent(Locators.loc_inputFileName).clear();
         Thread.sleep(500);
-        waitForElementToBePresent(Locators.loc_inputFileName).sendKeys(restName + "_" + Instant.now().getEpochSecond());
+        waitForElementToBePresent(Locators.loc_inputFileName).sendKeys(restName.replaceAll("[^A-Za-z]+", "") + "_" + Instant.now().getEpochSecond());
         waitForElementToClickable(Locators.loc_btnExport).click();
     }
 
