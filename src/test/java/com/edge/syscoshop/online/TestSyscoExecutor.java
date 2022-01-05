@@ -198,7 +198,7 @@ public class TestSyscoExecutor {
                 et.log(LogStatus.INFO, restaurant_name + " and purveryor " + purveyor);
                 loginFlag = commonSysco.doLogin(username.trim(), password.trim());
                 if (loginFlag) {
-                        result = commonSysco.stepsToExport(restaurant_name, accountNumber,listname.trim());
+                        result = commonSysco.stepsToExport(accountID, accountNumber,listname.trim());
                     if (result.equals(true)) {
                         emailMessageExport = "Pass";
                         exportstatus = "Pass";
