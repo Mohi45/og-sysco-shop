@@ -32,7 +32,8 @@ public class Locators {
     public static By loc_accountDdlBtn = By.xpath("//div[@data-id='topPanel-dropdown-button-globalCustomerSelection']/button");
     public static By loc_accountSearchBtn = By.xpath("//input[contains(@placeholder,'Search for Customer or OpCo')]");
     public static By loc_accountNumDash = By.xpath("//div[@data-id='topPanel-dropdown-button-globalCustomerSelection']//div[contains(.,'acNum')]");
-    static String loc_accountNum = "//p[normalize-space()='accountName";
+    public static By loc_firstAccount = By.xpath("//div[@data-id='globalCustomerSelectFlyout-customerList-label-customerInfoCard'][1]");
+    static String loc_accountNum = "//div[@data-id='globalCustomerSelectFlyout-customerList-label-customerInfoCard']//p[normalize-space()='accountName";
     //ddl all acNums
     public static By loc_allAcNums = By.xpath("//p[@data-id='globalCustomerSelectFlyout-dropdown-label-customerId']");
     //list buttons

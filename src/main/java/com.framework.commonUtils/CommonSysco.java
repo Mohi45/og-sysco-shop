@@ -168,11 +168,17 @@ public class CommonSysco {
 
         waitForElementToClickable(Locators.loc_accountDdlBtn).click();
         try {
+            // search and finf acc.
+//            waitForElementToAppear(Locators.loc_accountSearchBtn).sendKeys(accountName);
+//            waitForElementToClickable(Locators.loc_firstAccount).click();
+
             waitForElementToClickable(By.xpath(Locators.loc_accountNum.replace("accountName", accountName))).click();
         }catch (Exception ex){
             logger.error("failed to select account");
             ex.printStackTrace();
         }
+
+        // get all acc. text and compare
 //        waitForElementToAppear(Locators.loc_accountSearchBtn).sendKeys(accountName);
 //        List<WebElement> elements = driver.findElements(Locators.loc_allAcNums);
 //        for (WebElement element : elements) {
