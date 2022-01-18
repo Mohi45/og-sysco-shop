@@ -33,6 +33,10 @@ public class CommonSysco {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
+    protected List<WebElement> waitForElementsToAppear(By locator) {
+        return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
+    }
+
     protected WebElement waitForElementToClickable(By locator) {
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
@@ -105,25 +109,24 @@ public class CommonSysco {
         driver.get("https://shop.sysco.com/app/lists");
         Thread.sleep(3000);
 
+        List<WebElement> elements = null;
+
         if (isListDdlPresent()) {
             waitForElementToClickable(Locators.loc_allListDropIcon).click();
             Thread.sleep(1000);
-            List<WebElement> elements = driver.findElements(Locators.loc_allListValues);
-            for (WebElement element : elements) {
-                String eleText = element.getText().toLowerCase();
-                if (eleText.contains(listName.toLowerCase())) {
-                    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-                    Thread.sleep(500);
-                    element.click();
-                    return;
-                }
-            }
+            elements = driver.findElements(Locators.loc_allListValues);
+        }else {
+            elements = driver.findElements(Locators.loc_btnListNames);
         }
 
-        try {
-            waitForElementToBePresent(By.xpath("//button[contains(.,'" + listName + "')]")).click();
-        } catch (Exception ex) {
-            logger.error("list sidebar also not present");
+        for (WebElement element : elements) {
+            String eleText = element.getText().toLowerCase();
+            if (eleText.contains(listName.toLowerCase())) {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+                Thread.sleep(200);
+                element.click();
+                return;
+            }
         }
 //        throw new Exception("list Name not found in all lists");
     }
