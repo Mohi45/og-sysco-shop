@@ -11,6 +11,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Instant;
 import java.util.List;
 
+import static com.framework.commonUtils.RandomAction.dismissAlert;
+
 public class CommonSysco {
 
     private final static Logger logger = Logger.getLogger(CommonSysco.class);
@@ -175,15 +177,18 @@ public class CommonSysco {
     public boolean stepsToExport(String restName, String accountName, String listName) {
         try {
 //            Thread.sleep(3000);
+            dismissAlert();
             if (accountName != null && !accountName.equalsIgnoreCase("")){
                 Thread.sleep(3000);
                 selectAccount(accountName);
             }
 
+            dismissAlert();
             if (listName != null && !listName.equalsIgnoreCase("")){
                 selectList(listName);
             }
 
+            dismissAlert();
             exportList(restName);
 
             Thread.sleep(3000);
