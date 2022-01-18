@@ -228,7 +228,7 @@ public class RandomAction {
         try {
             driver.findElement(Locators.loc_dismissPopUpModal).click();
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 

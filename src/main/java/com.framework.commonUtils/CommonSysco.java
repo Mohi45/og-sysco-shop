@@ -189,16 +189,10 @@ public class CommonSysco {
                 selectAccount(accountName);
             }
 
-            if (isPopUpPresent()) {
-                dismissPopUp();
-            }
             if (listName != null && !listName.equalsIgnoreCase("")) {
                 selectList(listName);
             }
 
-            if (isPopUpPresent()) {
-                dismissPopUp();
-            }
             exportList(restName);
 
             Thread.sleep(3000);
