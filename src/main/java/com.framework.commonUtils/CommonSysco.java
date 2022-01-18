@@ -167,15 +167,20 @@ public class CommonSysco {
         Thread.sleep(3000);
 
         waitForElementToClickable(Locators.loc_accountDdlBtn).click();
-        waitForElementToAppear(Locators.loc_accountSearchBtn).sendKeys(accountName);
-        List<WebElement> elements = driver.findElements(Locators.loc_allAcNums);
-        for (WebElement element : elements) {
-            if (element.getText().contains(accountName)) {
-                element.click();
-                return;
-            }
+        try {
+            waitForElementToClickable(By.xpath(Locators.loc_accountNum.replace("accountName", accountName))).click();
+        }catch (Exception ex){
+            logger.error("failed to select account");
+            ex.printStackTrace();
         }
-        throw new Exception("account Name not found in all account names");
+//        waitForElementToAppear(Locators.loc_accountSearchBtn).sendKeys(accountName);
+//        List<WebElement> elements = driver.findElements(Locators.loc_allAcNums);
+//        for (WebElement element : elements) {
+//            if (element.getText().contains(accountName)) {
+//                element.click();
+//                return;
+//            }
+//        }
     }
 
     public boolean stepsToExport(String restName, String accountName, String listName) {
@@ -185,7 +190,6 @@ public class CommonSysco {
                 dismissPopUp();
             }
             if (accountName != null && !accountName.equalsIgnoreCase("")) {
-                Thread.sleep(3000);
                 selectAccount(accountName);
             }
 
