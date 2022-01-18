@@ -199,6 +199,15 @@ public class RandomAction {
         }
     }
 
+    public static boolean isPopUpPresent() {
+        try {
+           return driver.findElement(Locators.loc_popUpModal).isDisplayed();
+        } // try
+        catch (Exception Ex) {
+            return false;
+        }
+    }
+
     public static void acceptAlert() {
         try {
             driver.switchTo().alert().accept();
@@ -211,6 +220,14 @@ public class RandomAction {
         try {
             driver.switchTo().alert().dismiss();
         } catch (NoAlertPresentException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void dismissPopUp() {
+        try {
+            driver.findElement(Locators.loc_dismissPopUpModal).click();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

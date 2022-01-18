@@ -11,7 +11,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Instant;
 import java.util.List;
 
-import static com.framework.commonUtils.RandomAction.dismissAlert;
+import static com.framework.commonUtils.RandomAction.dismissPopUp;
+import static com.framework.commonUtils.RandomAction.isPopUpPresent;
 
 public class CommonSysco {
 
@@ -115,7 +116,7 @@ public class CommonSysco {
             waitForElementToClickable(Locators.loc_allListDropIcon).click();
             Thread.sleep(1000);
             elements = driver.findElements(Locators.loc_allListValues);
-        }else {
+        } else {
             elements = driver.findElements(Locators.loc_btnListNames);
         }
 
@@ -147,7 +148,7 @@ public class CommonSysco {
         waitForElementToClickable(Locators.loc_exportList).click();
         Thread.sleep(3000);
         waitForElementToClickable(Locators.loc_includePrices).click();
-        waitForElementToBePresent(Locators.loc_inputFileName).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+        waitForElementToBePresent(Locators.loc_inputFileName).sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
         Thread.sleep(500);
         waitForElementToBePresent(Locators.loc_inputFileName).sendKeys(restName.replaceAll("[^A-Za-z]+", "") + "_" + Instant.now().getEpochSecond());
         waitForElementToClickable(Locators.loc_btnExport).click();
@@ -180,18 +181,24 @@ public class CommonSysco {
     public boolean stepsToExport(String restName, String accountName, String listName) {
         try {
 //            Thread.sleep(3000);
-            dismissAlert();
-            if (accountName != null && !accountName.equalsIgnoreCase("")){
+            if (isPopUpPresent()) {
+                dismissPopUp();
+            }
+            if (accountName != null && !accountName.equalsIgnoreCase("")) {
                 Thread.sleep(3000);
                 selectAccount(accountName);
             }
 
-            dismissAlert();
-            if (listName != null && !listName.equalsIgnoreCase("")){
+            if (isPopUpPresent()) {
+                dismissPopUp();
+            }
+            if (listName != null && !listName.equalsIgnoreCase("")) {
                 selectList(listName);
             }
 
-            dismissAlert();
+            if (isPopUpPresent()) {
+                dismissPopUp();
+            }
             exportList(restName);
 
             Thread.sleep(3000);

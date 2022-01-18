@@ -34,6 +34,9 @@ public class Locators {
     public static By loc_accountNumDash = By.xpath("//div[@data-id='topPanel-dropdown-button-globalCustomerSelection']//div[contains(.,'acNum')]");
     //ddl all acNums
     public static By loc_allAcNums = By.xpath("//p[@data-id='globalCustomerSelectFlyout-dropdown-label-customerId']");
+    //list buttons
     public static By loc_btnListNames = By.xpath("//button[@data-id='my-lists-toggle-button']/following-sibling::*//button");
-
+    // pop up modal
+    public static By loc_popUpModal = By.xpath("//div[@class='modal-content modal-lg']");
+    public static By loc_dismissPopUpModal = By.xpath("//button[@data-dismiss='modal']");
 }
