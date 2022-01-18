@@ -169,10 +169,10 @@ public class CommonSysco {
         waitForElementToClickable(Locators.loc_accountDdlBtn).click();
         try {
             // search and finf acc.
-            waitForElementToAppear(Locators.loc_accountSearchBtn).sendKeys(accountName);
-            waitForElementToClickable(Locators.loc_firstAccount).click();
+//            waitForElementToAppear(Locators.loc_accountSearchBtn).sendKeys(accountName);
+//            waitForElementToClickable(Locators.loc_firstAccount).click();
 
-//            waitForElementToClickable(By.xpath(Locators.loc_accountNum.replace("accountName", accountName))).click();
+            waitForElementToAppear(By.xpath(Locators.loc_accountNum.replace("accountName", accountName))).click();
         }catch (Exception ex){
             logger.error("failed to select account");
             ex.printStackTrace();
