@@ -11,8 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Instant;
 import java.util.List;
 
-import static com.framework.commonUtils.RandomAction.dismissPopUp;
-import static com.framework.commonUtils.RandomAction.isPopUpPresent;
+import static com.framework.commonUtils.RandomAction.*;
 
 public class CommonSysco {
 
@@ -194,6 +193,9 @@ public class CommonSysco {
 //            Thread.sleep(3000);
             if (isPopUpPresent()) {
                 dismissPopUp();
+            }
+            if(isAlertPresent()){
+                dismissAlert();
             }
             if (accountName != null && !accountName.equalsIgnoreCase("")) {
                 selectAccount(accountName);
