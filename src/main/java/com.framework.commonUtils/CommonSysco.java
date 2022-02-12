@@ -149,7 +149,7 @@ public class CommonSysco {
         waitForElementToClickable(Locators.loc_includePrices).click();
         waitForElementToBePresent(Locators.loc_inputFileName).clear();
         Thread.sleep(500);
-        waitForElementToBePresent(Locators.loc_inputFileName).sendKeys(restName.replaceAll("[^A-Za-z]+", "") + "_" + Instant.now().getEpochSecond());
+        waitForElementToBePresent(Locators.loc_inputFileName).sendKeys(restName.replaceAll("[^A-Za-z]+", "") + System.currentTimeMillis());
         waitForElementToClickable(Locators.loc_btnExport).click();
     }
 
@@ -170,6 +170,7 @@ public class CommonSysco {
             // search and finf acc.
             waitForElementToAppear(Locators.loc_accountSearchBtn).sendKeys(accountName);
 //            waitForElementToAppear(Locators.loc_firstAccount).click();
+            Thread.sleep(500);
 
             waitForElementToAppear(By.xpath(Locators.loc_accountNum.replace("accountName", accountName))).click();
         }catch (Exception ex){
