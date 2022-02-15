@@ -147,9 +147,12 @@ public class CommonSysco {
         waitForElementToClickable(Locators.loc_exportList).click();
         Thread.sleep(3000);
         waitForElementToClickable(Locators.loc_includePrices).click();
-        waitForElementToBePresent(Locators.loc_inputFileName).sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
-        Thread.sleep(500);
-        waitForElementToBePresent(Locators.loc_inputFileName).sendKeys(restName.replaceAll("[^A-Za-z]+", "") + "_" + Instant.now().getEpochSecond());
+        Thread.sleep(100);
+        WebElement text_input = waitForElementToBePresent(Locators.loc_inputFileName);
+        text_input.click();
+        ((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", text_input);
+        Thread.sleep(200);
+        text_input.sendKeys(restName.replaceAll("[^A-Za-z]+", "") + "_" + Instant.now().getEpochSecond());
         waitForElementToClickable(Locators.loc_btnExport).click();
     }
 
@@ -199,11 +202,16 @@ public class CommonSysco {
             }
             if (accountName != null && !accountName.equalsIgnoreCase("")) {
                 selectAccount(accountName);
+                Thread.sleep(5000);
+                if (!verifyAccount(accountName)){
+                    throw new Exception(String.format("account selection mismatch, expected account {} not selected", accountName));
+                }
             }
 
             if (isPopUpPresent()) {
                 dismissPopUp();
             }
+
             if (listName != null && !listName.equalsIgnoreCase("")) {
                 selectList(listName);
             }
@@ -217,5 +225,9 @@ public class CommonSysco {
             ex.printStackTrace();
             return false;
         }
+    }
+
+    private boolean verifyAccount(String accountName) {
+        return waitForElementToBePresent(By.xpath(Locators.loc_accountName.replace("acNum", accountName))).isDisplayed();
     }
 }

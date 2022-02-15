@@ -30,6 +30,7 @@ public class Locators {
 
     // select account - search
     public static By loc_accountDdlBtn = By.xpath("//div[@data-id='topPanel-dropdown-button-globalCustomerSelection']/button");
+    public static String loc_accountName = "//div[@data-id='topPanel-dropdown-button-globalCustomerSelection']/label/div[contains(text(),'acNum')]";
     public static By loc_accountSearchBtn = By.xpath("//input[contains(@placeholder,'Search for Customer or OpCo')]");
     public static By loc_accountNumDash = By.xpath("//div[@data-id='topPanel-dropdown-button-globalCustomerSelection']//div[contains(.,'acNum')]");
     public static By loc_firstAccount = By.xpath("//div[@data-id='globalCustomerSelectFlyout-customerList-label-customerInfoCard'][1]");
