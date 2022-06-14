@@ -12,6 +12,9 @@ import javax.mail.internet.MimeMultipart;
 import java.io.File;
 import java.util.Properties;
 
+import static com.framework.commonUtils.Constant.GmailPassword;
+import static com.framework.commonUtils.Constant.GmailUser;
+
 public class SendMailSSL {
     private final static Logger logger = Logger.getLogger(SendMailSSL.class);
 
@@ -30,7 +33,7 @@ public class SendMailSSL {
 
         Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("onlineweekend.diningedge@gmail.com", "edge2016");// change
+                return new PasswordAuthentication(GmailUser, GmailPassword);// change
                 // accordingly
             }
         });
