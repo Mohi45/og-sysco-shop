@@ -211,9 +211,19 @@ public class CommonSysco {
             if (isPopUpPresent()) {
                 dismissPopUp();
             }
+            if(isAlertPresent()){
+                dismissAlert();
+            }
 
             if (listName != null && !listName.equalsIgnoreCase("")) {
                 selectList(listName);
+            }
+
+            if (isPopUpPresent()) {
+                dismissPopUp();
+            }
+            if(isAlertPresent()){
+                dismissAlert();
             }
 
             exportList(restName);
