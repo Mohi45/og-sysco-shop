@@ -64,11 +64,14 @@ public class CommonSysco {
             waitForElementToAppear(Locators.loc_password).sendKeys(Keys.ENTER);
             Thread.sleep(1000);
             waitForElementToAppear(Locators.loc_login).click();
-            Thread.sleep(7000);
+            Thread.sleep(10000);
             if (waitForElementToBePresent(Locators.loc_lnkProfile).isDisplayed())
                 return true;
         } catch (Exception e) {
             e.printStackTrace();
+            driver.get("https://shop.sysco.com/app/discover");
+            if (waitForElementToBePresent(Locators.loc_lnkProfile).isDisplayed())
+                return true;
         }
         return false;
     }
