@@ -197,12 +197,9 @@ public class CommonSysco {
     public boolean stepsToExport(String restName, String accountName, String listName) {
         try {
 //            Thread.sleep(3000);
-            if (isPopUpPresent()) {
-                dismissPopUp();
-            }
-            if(isAlertPresent()){
-                dismissAlert();
-            }
+            dismissPopUp();
+            dismissAlert();
+
             if (accountName != null && !accountName.equalsIgnoreCase("")) {
                 selectAccount(accountName);
                 Thread.sleep(5000);
@@ -211,23 +208,15 @@ public class CommonSysco {
                 }
             }
 
-            if (isPopUpPresent()) {
-                dismissPopUp();
-            }
-            if(isAlertPresent()){
-                dismissAlert();
-            }
+            dismissPopUp();
+            dismissAlert();
 
             if (listName != null && !listName.equalsIgnoreCase("")) {
                 selectList(listName);
             }
 
-            if (isPopUpPresent()) {
-                dismissPopUp();
-            }
-            if(isAlertPresent()){
-                dismissAlert();
-            }
+            dismissPopUp();
+            dismissAlert();
 
             exportList(restName);
 
