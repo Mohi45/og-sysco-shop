@@ -217,7 +217,6 @@ public class CommonSysco {
 
             dismissPopUp();
             dismissAlert();
-
             exportList(restName);
 
             Thread.sleep(3000);

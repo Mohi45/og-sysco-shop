@@ -41,5 +41,6 @@ public class Locators {
     public static By loc_btnListNames = By.xpath("//button[@data-id='my-lists-toggle-button']/following-sibling::*//button");
     // pop up modal
     public static By loc_popUpModal = By.xpath("//div[@class='modal-content modal-lg']");
-    public static By loc_dismissPopUpModal = By.xpath("//button[@aria-label='Close']//div[@class='icon icon-primary icon-md']");
+//    public static By loc_dismissPopUpModal = By.xpath("//button[@aria-label='Close']//div[@class='icon icon-primary icon-md']");
+    public static By loc_dismissPopUpModal = By.xpath("//div[@id='intercom-modal-container']");
 }
