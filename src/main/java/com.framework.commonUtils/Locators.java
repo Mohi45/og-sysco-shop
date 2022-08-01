@@ -42,5 +42,5 @@ public class Locators {
     // pop up modal
     public static By loc_popUpModal = By.xpath("//div[@class='modal-content modal-lg']");
 //    public static By loc_dismissPopUpModal = By.xpath("//button[@aria-label='Close']//div[@class='icon icon-primary icon-md']");
-    public static By loc_dismissPopUpModal = By.xpath("//div[@id='intercom-modal-container']");
+    public static By loc_dismissPopUpModal = By.xpath("//span[starts-with(@class,'intercom-post-close')]");
 }

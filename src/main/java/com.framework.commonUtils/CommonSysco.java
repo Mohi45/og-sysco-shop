@@ -178,7 +178,7 @@ public class CommonSysco {
 //            waitForElementToAppear(Locators.loc_firstAccount).click();
             Thread.sleep(100);
             waitForElementToAppear(By.xpath(Locators.loc_accountNum.replace("accountName", accountName))).click();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             logger.error("failed to select account");
             ex.printStackTrace();
         }
@@ -197,26 +197,33 @@ public class CommonSysco {
     public boolean stepsToExport(String restName, String accountName, String listName) {
         try {
 //            Thread.sleep(3000);
-            dismissPopUp();
+            if (isIframePresent(driver)) {
+                dismissPopUp();
+            }
             dismissAlert();
 
             if (accountName != null && !accountName.equalsIgnoreCase("")) {
                 selectAccount(accountName);
                 Thread.sleep(5000);
-                if (!verifyAccount(accountName)){
+                if (!verifyAccount(accountName)) {
                     throw new Exception(String.format("account selection mismatch, expected account {} not selected", accountName));
                 }
             }
 
-            dismissPopUp();
+            if (isIframePresent(driver)) {
+                dismissPopUp();
+            }
             dismissAlert();
 
             if (listName != null && !listName.equalsIgnoreCase("")) {
                 selectList(listName);
             }
 
-            dismissPopUp();
+            if (isIframePresent(driver)) {
+                dismissPopUp();
+            }
             dismissAlert();
+
             exportList(restName);
 
             Thread.sleep(3000);

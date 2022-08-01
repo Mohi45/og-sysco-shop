@@ -226,9 +226,11 @@ public class RandomAction {
 
     public static void dismissPopUp() {
         try {
+            driver.switchTo().frame("intercom-modal-frame");
             driver.findElement(Locators.loc_dismissPopUpModal).click();
+            driver.switchTo().defaultContent();
         } catch (Exception e) {
-//            e.printStackTrace();
+            System.out.println("error no pop-up or issue closing pop up");
         }
     }
 
