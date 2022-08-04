@@ -61,13 +61,9 @@ public class CommonSysco {
             waitForElementToBePresent(Locators.loc_nextDiscovery).click();
 //            waitForElementToAppear(Locators.loc_userName).sendKeys(user);
             waitForElementToAppear(Locators.loc_password).sendKeys(password);
+            waitForElementToAppear(Locators.loc_password).sendKeys(Keys.ENTER);
             Thread.sleep(1000);
             waitForElementToAppear(Locators.loc_login).click();
-            try {
-                waitForElementToAppear(Locators.loc_password).sendKeys(Keys.ENTER);
-            } catch (Exception e) {
-            }
-
             Thread.sleep(10000);
             if (waitForElementToBePresent(Locators.loc_lnkProfile).isDisplayed())
                 return true;
