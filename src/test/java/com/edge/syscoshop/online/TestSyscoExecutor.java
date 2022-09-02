@@ -61,6 +61,7 @@ public class TestSyscoExecutor {
 
     @BeforeSuite
     public static void set() throws IOException {
+        System.out.println("This is for testing only !!!");
         er = new ExtentReports(System.getProperty("user.dir") + File.separator + "extentsReport/Report.html", true);
         er.addSystemInfo("Host Name", "Edge").addSystemInfo("Environment", "Windows Server")
                 .addSystemInfo("User Name", "Ashutosh Saxena").addSystemInfo("Project", project);
